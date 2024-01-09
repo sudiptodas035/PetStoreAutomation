@@ -1,22 +1,22 @@
-
 pipeline {
-    agent any
-  stages {
-        stage('Get Source Code') {
-            steps {
-                echo 'Running tests from jenkins pipeline'
+  agent any
+    stages {
+      stage('Get Source Code') {
+         steps
+            {
+                echo 'Running tests from Jenkins pipeline'
             }
         }
-        stage('Build code'){
-            steps
+      stage('Build code'){
+         steps
             {
-           bat 'mvn compile'
+                 bat 'mvn compile'
             }
         }
-        stage('Run Test'){
-            steps
+       stage('Run Test'){
+          steps
             {
-            bat 'mvn test'
+                 bat 'mvn test'
             }
         }
     }
