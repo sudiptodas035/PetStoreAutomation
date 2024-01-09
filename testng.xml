@@ -9,6 +9,7 @@
 			<class name="api.test.UserTests" />
 			<class name="api.test.UserTests2" />
 			<class name="api.test.DDTests" />
+			<class name="api.test.StoreTests" />
 		</classes>
 	</test>
 </suite> 

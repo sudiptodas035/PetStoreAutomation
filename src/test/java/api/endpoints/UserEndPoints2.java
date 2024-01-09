@@ -20,7 +20,6 @@ public class UserEndPoints2 {
 	}
 
 	public static Response createUser(User payload) {
-		String str = getURL().getString("post_url");
 		Response response = given().contentType(ContentType.JSON).accept(ContentType.JSON).body(payload).when()
 				.post(getURL().getString("post_url"));
 		return response;
