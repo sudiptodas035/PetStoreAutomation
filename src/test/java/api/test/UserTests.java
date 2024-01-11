@@ -1,15 +1,13 @@
 package api.test;
 
-import java.io.File;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
 import com.github.javafaker.Faker;
-
+import api.common.AccessToken;
+import api.db.JavaConnectToSQL;
 import api.endpoints.UserEndPoints;
 import api.payload.User;
 import io.restassured.response.Response;
@@ -35,6 +33,18 @@ public class UserTests {
 
 		// logs
 		logger = LogManager.getLogger(this.getClass());
+	}
+	
+	@Test(testName = "TCgetAccessToken", description = "Get single user", groups = "Regression", priority = 0)
+	public void TCgetAccessToken() {
+		try {
+			String accessToken = AccessToken.get_accessToken();
+			//JavaConnectToSQL.sqlCon();
+			logger.info("Access Token: " + accessToken);
+		} catch (Exception ex) {
+			logger.fatal(ex.getMessage().toString());
+			Assert.fail();
+		}
 	}
 
 	@Test(priority = 1)
