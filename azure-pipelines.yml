@@ -4,10 +4,11 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
 trigger:
-- main
+- none
 
 pool:
-  vmImage: windows-latest
+  name: Azure Pipelines
+  demands: maven
 
 variables:
   mavenPOMFile: 'pom.xml'
@@ -17,6 +18,22 @@ steps:
   displayName: 'Maven pom.xml'
   inputs:
     mavenPomFile: '$(Parameters.mavenPOMFile)'
-    goals: test
-    jdkVersionOption: 1.8
+    goals: 'clean install'
+    testRunTitle: 'mvn_pipelineProjPetStoreTests'
+
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+  inputs:
+    SourceFolder: '$(system.defaultworkingdirectory)'
+    Contents: '**/*.jar'
+    TargetFolder: '$(build.artifactstagingdirectory)'
+  condition: succeededOrFailed()
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
+  condition: succeededOrFailed()
+
+
     
